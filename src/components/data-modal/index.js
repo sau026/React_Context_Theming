@@ -9,13 +9,15 @@ import "./index.scss";
 
 const DataModal = (props) => {
   const taskList = useSelector((state) => state.todoDataReducer);
-  console.log("props value:::::::::", taskList.tasks);
   const [formData, setFormData] = useState("");
   const [formValid, setFormValid] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    /*
+     * setting selected row data using props in add or update modal popup
+     */
     setFormData({
       id:
         props.selectedTaskData && props.selectedTaskData !== "new"
@@ -37,6 +39,9 @@ const DataModal = (props) => {
   }, [props.selectedTaskData]);
 
   useEffect(() => {
+    /*
+     * setting flag for form validation for button disable.
+     */
     if (formData && formData.taskName && formData.date) {
       setFormValid(true);
     } else {
@@ -45,12 +50,18 @@ const DataModal = (props) => {
   }, [formData]);
 
   useEffect(() => {
+    /*
+     * detect change on add, update & delete and show toast with sucess message.
+     */
     if (taskList.tasks.length > 0) {
       toast.success("Sucess");
     }
   }, [taskList.tasks]);
 
   const updateData = () => {
+    /*
+     * dispatch method to add & update value in store
+     */
     if (props.selectedTaskData === "new") {
       dispatch(addTask(formData));
     } else {
@@ -60,7 +71,10 @@ const DataModal = (props) => {
   };
 
   const handleChange = (evt, isDate = false) => {
-    if (
+    /* 
+     * setting form data as an object in state
+     */
+    if (                                      //not allowing number in task name input using rejex. 
       !isDate &&
       evt.target.name === "taskName" &&
       !/^[a-zA-Z]*$/.test(evt.target.value)
@@ -75,7 +89,7 @@ const DataModal = (props) => {
     });
   };
 
-  const getModalJSX = () => {
+  const getModalJSX = () => {                     //Return jsx for modal popup
     return (
       <div className="modal-content">
         <div className="modal-header">
@@ -83,7 +97,7 @@ const DataModal = (props) => {
             &times;
           </span>
           <h3>
-            {props.selectedTaskData === "new" ? "Add Popup" : "Update Data"}
+            {props.selectedTaskData === "new" ? "Add Task" : "Update Task"}
           </h3>
         </div>
         <div className="modal-body">

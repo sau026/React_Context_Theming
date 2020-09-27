@@ -1,16 +1,16 @@
-export const addTask = (data) => (dispatch) => {
+export const addTask = (data) => (dispatch) => {   //method for add task
   dispatch(addTaskData(data));
 };
 
-export const deleteTask = (id) => (dispatch) => {
-  dispatch(deleteTaskData(id));
-};
-
-export const editTask = (data) => (dispatch) => {
+export const editTask = (data) => (dispatch) => {   //method for edit task
   dispatch(editTaskData(data));
 };
 
-export function setLoading(status) {
+export const deleteTask = (id) => (dispatch) => {   //method for delete task
+  dispatch(deleteTaskData(id));
+};
+
+export function setLoading(status) {   //Not using loader in this proj because we are using redux store.
   return {
     status,
     type: "SET_LOADING",
@@ -25,7 +25,6 @@ export function addTaskData(payload) {
 }
 
 export function editTaskData(payload) {
-  console.log("edit task:::::", payload);
   return {
     type: "EDIT_TASK",
     payload: payload,

@@ -3,8 +3,11 @@ import Header from "../../components/header";
 import Table from "../../components/data-table";
 import "./index.scss";
 
-const Dashboard = (props) => {
+const Dashboard = () => {
   const getAppHeaderJSX = () => {
+     /*
+     * returning header JSX.
+     */
     return (
       <>
         <Header headerTitle={"Task List"} />
@@ -13,6 +16,9 @@ const Dashboard = (props) => {
   };
 
   const getTableJSX = () => {
+     /*
+     * returning table JSX.
+     */
     return (
       <>
         <Table />

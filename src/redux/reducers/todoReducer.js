@@ -24,7 +24,6 @@ const todoData = (state = initialState, action) => {
         ),
       };
     case "DELETE_TASK":
-      console.log("reducer delte::::::::", action);
       return {
         ...state,
         tasks: state.tasks.filter((item) => item.id !== action.payload),

@@ -6,7 +6,7 @@ const Header = (props) => {
             <header className="header__component-container -container">
                 <div className="header__site-branding -site-text-size">
                     <div>
-                    <span>{props.headerTitle}</span>
+                    <span>{props.headerTitle}</span>  {/*--Header as a props--*/} 
                     </div>
                     <div>
                       

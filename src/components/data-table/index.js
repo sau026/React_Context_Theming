@@ -8,38 +8,51 @@ const Table = (props) => {
   const allToDo = useSelector((state) => state.todoDataReducer);
   const dispatch = useDispatch();
   const [selectedTaskData, setSelectedTaskData] = useState(null);
-  const [selecFilter, setSelecFilter] = useState('all');
-
+  const [selecFilter, setSelecFilter] = useState("all");
 
   const filterTodo = (data) => {
-    setSelecFilter(data)
+    /*
+     * method to set filter status
+     */
+    setSelecFilter(data);
   };
 
   const deleteTasksList = (id) => {
+    /*
+     * dispatch method to delete task
+     */
     dispatch(deleteTask(id));
   };
 
   const openCloseModal = (data) => {
+    /*
+     * dispatch method to open/close modal popup
+     */
     setSelectedTaskData(data);
   };
 
   const getDate = (date) => {
+    /*
+     * take new date() and retun in DD/MM/YYYY format.
+     */
     return date.getDate() + "/" + date.getMonth() + "/" + date.getYear();
   };
 
-  const getTaleData = () => {
-    const task = allToDo.tasks.filter((element) => (selecFilter === 'all' || (selecFilter !== 'all' && selecFilter === element.status) ));
-    if(task.length === 0) {
+  const getTableData = () => {            // return table data after filter data on selected status
+    const task = allToDo.tasks.filter(
+      (element) =>
+        selecFilter === "all" ||
+        (selecFilter !== "all" && selecFilter === element.status)
+    );
+    if (task.length === 0) {              // return no record message if filered task array is empty
       return (
         <tr>
-          <td>
-            No records found
-          </td>
+          <td>No records found</td>
         </tr>
       );
     }
 
-    return task.map((element, i) => {
+    return task.map((element, i) => {     // return table jsx
       return (
         <tr key={i}>
           <td>{element.id}</td>
@@ -47,9 +60,7 @@ const Table = (props) => {
           <td>{getDate(element.date)}</td>
           <td
             className={
-              element.status === "active"
-                ? "text-yellow"
-                : "text-green"
+              element.status === "active" ? "text-yellow" : "text-green"
             }
           >
             {element.status === "active" ? "Active" : "Completed"}
@@ -64,8 +75,8 @@ const Table = (props) => {
           </td>
         </tr>
       );
-    })
-  }
+    });
+  };
 
   const getTableJSX = () => {
     return (
@@ -87,21 +98,14 @@ const Table = (props) => {
           <table>
             <thead>
               <tr>
-                <th
-                  onClick={() => console.log("trtrtrt")}
-                  style={{ cursor: "pointer" }}
-                >
-                  ToDo ID
-                </th>
+                <th>ToDo ID</th>
                 <th>task Name</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
-              <tbody>
-                {getTaleData()}
-              </tbody>
+            <tbody>{getTableData()}</tbody>
           </table>
         </div>
       </div>
@@ -110,7 +114,7 @@ const Table = (props) => {
 
   return (
     <>
-      <DataModal
+      <DataModal                                    // Data modal for add & update
         selectedTaskData={selectedTaskData}
         closeModal={(e) => openCloseModal(e)}
       />
