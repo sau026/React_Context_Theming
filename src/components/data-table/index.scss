@@ -1,0 +1,119 @@
+@import "./../../styles/colors";
+
+.table-container-main {
+  max-width: 65%;
+  margin: 3rem auto;
+  .add-button-container {
+    background: #fafafa;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: flex-end;
+    button {
+      background: #4ec44b;
+      outline: none;
+      border: navajowhite;
+      border-radius: 18px;
+      padding: 6px 14px;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  .pagination-container {
+    background: #fafafa;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .table-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: $textColor;
+      tr {
+        text-align: left;
+        border-bottom: 1px solid #9e9e9e61;
+        th {
+          padding: 10px 10px;
+          font-size: 14px;
+          color: $pureWhite;
+          background: $purpleLight;
+          text-align: center;
+        }
+      }
+      tbody {
+        td {
+          font-size: 15px;
+          color: $greyDark;
+          padding: 12px 10px !important;
+          text-align: center;
+          &:last-child {
+            display: flex;
+            justify-content: center;
+          }
+          .messenger-batch {
+            background: #6455b2;
+            padding: 3px 10px;
+            border-radius: 5px;
+            color: #fff;
+          }
+          .fa-edit {
+            color: #23403d;
+            font-size: 15px;
+            cursor: pointer;
+          }
+          .fa-trash {
+            color: $red;
+            margin-left: 1rem;
+            font-size: 15px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    button {
+      cursor: pointer;
+      outline: none;
+    }
+    @media only screen and (max-width: 480px) {
+      overflow: auto;
+    }
+  }
+  .search-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    button {
+      background: #fff;
+      border: 1px solid;
+      border-radius: 5px;
+      padding: 0 2rem;
+      cursor: pointer;
+      &:hover {
+        background: $purpleLight !important;
+        color: $pureWhite;
+      }
+    }
+    .status__dropdown {
+      width: 12rem;
+      padding: 10px 0;
+      border-radius: 5px;
+      background: #fff;
+      outline: none;
+    }
+  }
+  .text-yellow {
+    color: $skyBlueLight !important;
+  }
+  .text-green {
+    color: $greenDark !important;
+  }
+  @media only screen and (max-width: 786px) {
+    max-width: 94%;
+  }
+}
