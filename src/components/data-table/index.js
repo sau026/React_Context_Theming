@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { deleteTask } from "../../redux/actions/todoAction";
 import { useSelector, useDispatch } from "react-redux";
 import DataModal from "../../components/data-modal";
@@ -7,28 +7,12 @@ import "./index.scss";
 const Table = (props) => {
   const allToDo = useSelector((state) => state.todoDataReducer);
   const dispatch = useDispatch();
-  const [allToDoData, setAllToDoData] = useState([]);
   const [selectedTaskData, setSelectedTaskData] = useState(null);
-  const [selecFilter, setSelecFilter] = useState(null);
+  const [selecFilter, setSelecFilter] = useState('all');
 
-  useEffect(() => {
-    if(selecFilter){
-      filterTodo(selecFilter)
-    } else{
-      setAllToDoData(allToDo.tasks);
-    }
-  }, [allToDo]);
 
   const filterTodo = (data) => {
     setSelecFilter(data)
-    if (data === "all") {
-      setAllToDoData(allToDo.tasks);
-      return;
-    }
-    const newArray = allToDo.tasks.filter((e) => {
-      return e.status === data;
-    });
-    setAllToDoData(newArray);
   };
 
   const deleteTasksList = (id) => {
@@ -42,6 +26,46 @@ const Table = (props) => {
   const getDate = (date) => {
     return date.getDate() + "/" + date.getMonth() + "/" + date.getYear();
   };
+
+  const getTaleData = () => {
+    const task = allToDo.tasks.filter((element) => (selecFilter === 'all' || (selecFilter !== 'all' && selecFilter === element.status) ));
+    if(task.length === 0) {
+      return (
+        <tr>
+          <td>
+            No records found
+          </td>
+        </tr>
+      );
+    }
+
+    return task.map((element, i) => {
+      return (
+        <tr key={i}>
+          <td>{element.id}</td>
+          <td>{element.taskName}</td>
+          <td>{getDate(element.date)}</td>
+          <td
+            className={
+              element.status === "active"
+                ? "text-yellow"
+                : "text-green"
+            }
+          >
+            {element.status === "active" ? "Active" : "Completed"}
+          </td>
+          <td>
+            <div onClick={() => openCloseModal(element)}>
+              <i className="fas fa-edit icon"></i>
+            </div>
+            <div onClick={() => deleteTasksList(element.id)}>
+              <i className="fas fa-trash icon"></i>
+            </div>
+          </td>
+        </tr>
+      );
+    })
+  }
 
   const getTableJSX = () => {
     return (
@@ -76,36 +100,9 @@ const Table = (props) => {
               </tr>
             </thead>
               <tbody>
-                {allToDoData.length > 0 &&
-                  allToDoData.map((element, i) => {
-                    return (
-                      <tr key={i}>
-                        <td>{element.id}</td>
-                        <td>{element.taskName}</td>
-                        <td>{getDate(element.date)}</td>
-                        <td
-                          className={
-                            element.status === "active"
-                              ? "text-yellow"
-                              : "text-green"
-                          }
-                        >
-                          {element.status === "active" ? "Active" : "Completed"}
-                        </td>
-                        <td>
-                          <div onClick={() => openCloseModal(element)}>
-                            <i className="fas fa-edit icon"></i>
-                          </div>
-                          <div onClick={() => deleteTasksList(element.id)}>
-                            <i className="fas fa-trash icon"></i>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                {getTaleData()}
               </tbody>
           </table>
-          {allToDoData.length === 0 ? <h4>No Record</h4> : null}
         </div>
       </div>
     );

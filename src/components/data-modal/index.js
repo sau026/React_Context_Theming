@@ -9,6 +9,7 @@ import "./index.scss";
 
 const DataModal = (props) => {
   const taskList = useSelector((state) => state.todoDataReducer);
+  console.log("props value:::::::::", taskList.tasks);
   const [formData, setFormData] = useState("");
   const [formValid, setFormValid] = useState(false);
 
@@ -44,9 +45,8 @@ const DataModal = (props) => {
   }, [formData]);
 
   useEffect(() => {
-    if(taskList.tasks.length > 0){
+    if (taskList.tasks.length > 0) {
       toast.success("Sucess");
-      props.closeModal(null);
     }
   }, [taskList.tasks]);
 
@@ -56,6 +56,7 @@ const DataModal = (props) => {
     } else {
       dispatch(editTask(formData));
     }
+    props.closeModal(null);
   };
 
   const handleChange = (evt, isDate = false) => {
