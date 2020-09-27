@@ -73,6 +73,9 @@
             cursor: pointer;
           }
         }
+        .no-record{
+          display: table-cell !important;
+        }
       }
     }
     button {

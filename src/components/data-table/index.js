@@ -35,7 +35,7 @@ const Table = (props) => {
     /*
      * take new date() and retun in DD/MM/YYYY format.
      */
-    return date.getDate() + "/" + date.getMonth() + "/" + date.getYear();
+    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
   };
 
   const getTableData = () => {            // return table data after filter data on selected status
@@ -47,7 +47,7 @@ const Table = (props) => {
     if (task.length === 0) {              // return no record message if filered task array is empty
       return (
         <tr>
-          <td>No records found</td>
+          <td colSpan="5" className="no-record">No records found</td>
         </tr>
       );
     }
@@ -60,7 +60,7 @@ const Table = (props) => {
           <td>{getDate(element.date)}</td>
           <td
             className={
-              element.status === "active" ? "text-yellow" : "text-green"
+              element.status === "active" ? "text-yellow" : "text-green" //setting color on status
             }
           >
             {element.status === "active" ? "Active" : "Completed"}
