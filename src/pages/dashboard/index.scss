@@ -8,7 +8,6 @@
     .main-body{
       margin: unset;
       height: 100vh;
-      background: $greyLight;
       @media only screen and (max-width: 480px) {
         overflow: auto;
       }
